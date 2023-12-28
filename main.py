@@ -11,6 +11,8 @@ from llama_index.multi_modal_llms.generic_utils import (
     load_image_urls,
 )
 
+#**I'm* *a* *Gen*erator of *Stories*, is an app that aims to create stories using one or more images as a premise.
+
 ####
 st.set_page_config(
     page_title="ImaGenStories",
@@ -18,10 +20,10 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="auto",
     menu_items={
-        'About': """# ImaGenStories. 
+        'About': """# ImaGenStories 
 "ImaGenStories: **I'm** **a** **Gen**erator of **Stories**"
 
-Welcome to ImaGenStories, where image-ination meets storytelling! ImaGenStories is not just an app; it's a creative companion that transforms ordinary images into extraordinary tales.
+Welcome to ImaGenStories, where image-ination meets storytelling 😁! ImaGenStories is not just an app; it's a creative companion that transforms ordinary images into extraordinary tales.
 
 ## Unleash Your Creativity:
 ImaGenStories is more than a mere story generator—it's a platform that empowers you to unleash your creativity in a unique way. By providing one or more images as a creative spark, ImaGenStories invites you to embark on a journey of imagination, turning static visuals into vibrant narratives.
@@ -34,23 +36,37 @@ Whether you're a seasoned writer seeking inspiration or someone who simply loves
 
 ## Features:
 * Image-driven Story Generation: Turn images into the foundation of your stories.
-* Diverse Genres: Explore various genres, from fantasy and science fiction to mystery and romance.
-* Customization: Tailor the generated stories by adjusting parameters and preferences.
-* Save and Share: Save your favorite story ideas or share them with fellow storytellers.
+* Diverse Genres: Explore various genres, from adventure and science fiction to mystery and romance.
+* Customization: Tailor the generated stories by adjusting parameters and preferences. (Coming soon).
+* Save and Share: Save your favorite story ideas or share them with fellow storytellers. (Coming soon).
 
 ## Why ImaGenStories?
 ImaGenStories goes beyond the ordinary, offering a dynamic and interactive storytelling experience. It's not just about generating stories; it's about cultivating your creativity and bringing your unique narratives to life.
 
 Embark on a storytelling adventure like never before with ImaGenStories—where every image has a story to tell, and you're the author of the tale.
 
-Start exploring and let your imagination run wild!"""
-    }
-    
-#**I'm* *a* *Gen*erator of *Stories*, is an app that aims to create stories using one or more images as a premise.
-    
+*Start exploring and let your imagination run wild!*
+---
+Author: [Reewos Talla](https://github.com/reewos)
+Resource: [ImaGenStories](https://github.com/reewos/ImaGenStories)
+Last updated: December 28, 2023
+---
+"""
+    }    
 )
+
+st.markdown(
+    """
+    <style>
+    [aria-label="dialog"]{
+        width: 90vw;
+    }
+    </style>
+    """, unsafe_allow_html=True
+)
+
 st.title("ImaGenStories")
-st.write("I'm a Generator of Stories")
+#st.write("I'm a Generator of Stories")
 
 try:
     os.environ["GOOGLE_API_KEY"] = st.secrets["GOOGLE_API_KEY"]
@@ -76,48 +92,88 @@ Please use the following prompts:
 """
 story_template = PromptTemplate(prompt_story)
 
-# Using "with" notation
+st.sidebar.title("Parameters")
 with st.sidebar:
-    st.markdown("### Parameters")
-    genre_radio = st.radio(
+    #st.radio(
+    #    "Choose a genre",
+    #    ("Adventure", "Mystery", "Police", "Romantic", "Science fiction", "Terror")
+    #)
+    genre_radio = st.selectbox(
         "Choose a genre",
-        ("Adventure", "Terror", "Mystery", "Police", "Romantic", "Science fiction")
+        ("Adventure", "Mystery", "Police", "Romantic", "Science fiction", "Terror")
     )
-    narrative_radio = st.radio(
+    narrative_radio = st.selectbox(
         "Choose a narrative type",
         ("Descriptive", "Linear", "Nonlinear", "Viewpoint")
     )
-    language_radio = st.radio(
+    language_radio = st.selectbox(
         "Choose a language",
         ("English", "Spanish")
-    )
-    
-left_column, right_column = st.columns(2)
+    ) 
 
-with left_column:
-    uploaded_file = st.file_uploader("Choose a image file", type = (["jpg", "jpeg", "png"]))
-    if uploaded_file is not None:
-        image = Image.open(uploaded_file)
-        st.image(image)#,caption='Enter any caption here')
-        temp_dir = tempfile.mkdtemp()
-        path = os.path.join(temp_dir, uploaded_file.name)
-        with open(path, "wb") as f:
-            f.write(uploaded_file.getvalue())
+#######
 
-with right_column:
-    st.write("Upload some image, and press the button")
-    if st.button('Generate a story!'):
-        if path is None:
-            st.write("Error: Path not found")
-        else:
-            image_documents = [ImageDocument(image_path=path)]
-            message_placeholder = st.empty()
-            full_response = ""
-            prompt_final = story_template.format(genre=genre_radio,narrative=narrative_radio,language=language_radio)
-            for response in gemini_vision.stream_complete(prompt = prompt_final, image_documents=image_documents):
-                #print(response.text, end="")
-                full_response += (response.text or "")
-                message_placeholder.markdown(full_response + "▌")
-            message_placeholder.markdown(full_response)
+tab_main, tab_info = st.tabs(["Main", "Info"])
+
+with tab_main:
+    left_column, right_column = st.columns(2)
+    with left_column:
+        uploaded_file = st.file_uploader("Choose a image file", type = (["jpg", "jpeg", "png"]))
+        if uploaded_file is not None:
+            image = Image.open(uploaded_file)
+            st.image(image)#,caption='Enter any caption here')
+            temp_dir = tempfile.mkdtemp()
+            path = os.path.join(temp_dir, uploaded_file.name)
+            with open(path, "wb") as f:
+                f.write(uploaded_file.getvalue())
+
+    with right_column:
+        st.write("Upload some image, and press the button")
+        if st.button('Generate a story!'):
+            if path is None:
+                st.write("Error: Path not found")
+            else:
+                image_documents = [ImageDocument(image_path=path)]
+                message_placeholder = st.empty()
+                full_response = ""
+                prompt_final = story_template.format(genre=genre_radio,narrative=narrative_radio,language=language_radio)
+                for response in gemini_vision.stream_complete(prompt = prompt_final, image_documents=image_documents):
+                    #print(response.text, end="")
+                    full_response += (response.text or "")
+                    message_placeholder.markdown(full_response + "▌")
+                message_placeholder.markdown(full_response)
             
- 
+with tab_info:
+    st.markdown("""
+ImaGenStories: **I'm** **a** **Gen**erator of **Stories**
+
+Welcome to ImaGenStories, where image-ination meets storytelling 😁! ImaGenStories is not just an app; it's a creative companion that transforms ordinary images into extraordinary tales.
+
+## Unleash Your Creativity:
+ImaGenStories is more than a mere story generator—it's a platform that empowers you to unleash your creativity in a unique way. By providing one or more images as a creative spark, ImaGenStories invites you to embark on a journey of imagination, turning static visuals into vibrant narratives.
+
+## How It Works:
+Simply choose an image or a combination of images that resonate with you, and let ImaGenStories weave a narrative tapestry around them. The app intelligently interprets visual elements, sparking the birth of characters, settings, and plots. It's an innovative way to break through creative blocks and discover new story ideas.
+
+## Versatility at Your Fingertips:
+Whether you're a seasoned writer seeking inspiration or someone who simply loves to explore the realms of storytelling, ImaGenStories adapts to your needs. Use it for short stories, novel concepts, screenplay ideas, or even as a tool for collaborative storytelling with friends.
+
+## Features:
+* Image-driven Story Generation: Turn images into the foundation of your stories.
+* Diverse Genres: Explore various genres, from adventure and science fiction to mystery and romance.
+* Customization: Tailor the generated stories by adjusting parameters and preferences. (Coming soon).
+* Save and Share: Save your favorite story ideas or share them with fellow storytellers. (Coming soon).
+
+## Why ImaGenStories?
+ImaGenStories goes beyond the ordinary, offering a dynamic and interactive storytelling experience. It's not just about generating stories; it's about cultivating your creativity and bringing your unique narratives to life.
+
+Embark on a storytelling adventure like never before with ImaGenStories—where every image has a story to tell, and you're the author of the tale.
+
+*Start exploring and let your imagination run wild!*
+---
+Author: [Reewos Talla](https://github.com/reewos)
+Resource: [ImaGenStories](https://github.com/reewos/ImaGenStories)
+Last updated: December 28, 2023
+---
+    """)
+    
