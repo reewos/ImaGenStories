@@ -32,13 +32,13 @@ st.markdown(
     </style>
     """, unsafe_allow_html=True
 )
-st.title("📝 ImaGenStories")
+st.title("🎨📝 ImaGenStories")
 
 ### Keys ###
 try:
     os.environ["GOOGLE_API_KEY"] = st.secrets["GOOGLE_API_KEY"]
 except:
-    st.write("Error: Secrets")
+    st.error("Error: Secrets")
 
 ### Models ###
 gemini_vision = GeminiMultiModal(model_name="models/gemini-pro-vision")
@@ -64,6 +64,7 @@ with st.sidebar:
         "Choose a narrative type",
         ("Descriptive", "Linear", "Nonlinear", "Viewpoint")
     )
+    language_radio = "English"
 #    language_radio = st.selectbox(
 #        "Choose a language",
 #        ("English","Spanish")
@@ -89,16 +90,18 @@ with tab_main:
         st.write("Upload some image, and press the button")
         if st.button('Generate a story!'):
             if path is None:
-                st.write("Error: Path not found")
+                st.warning("Error: Path not found")
             else:
                 image_documents = [ImageDocument(image_path=path)]
                 message_placeholder = st.empty()
                 full_response = ""
                 prompt_final = story_template.format(genre=genre_radio,narrative=narrative_radio,language=language_radio)
-                for response in gemini_vision.stream_complete(prompt = prompt_final, image_documents=image_documents):
-                    full_response += (response.text or "")
-                    message_placeholder.markdown(full_response + "▌")
-                message_placeholder.markdown(full_response)
-            
+                try:
+                    for response in gemini_vision.stream_complete(prompt = prompt_final, image_documents=image_documents):
+                        full_response += (response.text or "")
+                        message_placeholder.markdown(full_response + "▌")
+                    message_placeholder.markdown(full_response)
+                except Exception as e:
+                    st.error(e)
 with tab_info:
     st.markdown(texts["about"])
