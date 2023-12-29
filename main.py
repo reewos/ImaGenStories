@@ -32,7 +32,7 @@ st.markdown(
     </style>
     """, unsafe_allow_html=True
 )
-st.title("ImaGenStories")
+st.title("📝 ImaGenStories")
 
 ### Keys ###
 try:
@@ -64,10 +64,10 @@ with st.sidebar:
         "Choose a narrative type",
         ("Descriptive", "Linear", "Nonlinear", "Viewpoint")
     )
-    language_radio = st.selectbox(
-        "Choose a language",
-        ("English", "Spanish")
-    ) 
+#    language_radio = st.selectbox(
+#        "Choose a language",
+#        ("English","Spanish")
+#    ) 
 
 #######
 
