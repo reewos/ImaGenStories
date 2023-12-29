@@ -1,6 +1,6 @@
 # ImaGenStories
 
-ImaGenStories: <span style="color:blue">**I'm a Gen**</span>erator of <span style="color:blue">**Stories**</span>
+ImaGenStories: **I'm a Gen**erator of **Stories**
 
 Welcome to ImaGenStories, where image-ination meets storytelling 😁! ImaGenStories is not just an app; it's a creative companion that transforms ordinary images into extraordinary tales.
 
@@ -9,6 +9,10 @@ ImaGenStories is more than a mere story generator—it's a platform that empower
 
 ## How It Works:
 Simply choose an image or a combination of images that resonate with you, and let ImaGenStories weave a narrative tapestry around them. The app intelligently interprets visual elements, sparking the birth of characters, settings, and plots. It's an innovative way to break through creative blocks and discover new story ideas.
+
+See how it works in this [Tutorial](https://drive.google.com/file/d/1HkL2KVmJzVm6qoRgtluoao3NpObBcqAH/view).
+
+Try it yourself on this page [ImaGenStories](https://imagenstories.streamlit.app/), hosted with Streamlit.
 
 ## Versatility at Your Fingertips:
 Whether you're a seasoned writer seeking inspiration or someone who simply loves to explore the realms of storytelling, ImaGenStories adapts to your needs. Use it for short stories, novel concepts, screenplay ideas, or even as a tool for collaborative storytelling with friends.
