@@ -16,7 +16,7 @@ Whether you're a seasoned writer seeking inspiration or someone who simply loves
 ## Features:
 * Image-driven Story Generation: Turn images into the foundation of your stories.
 * Diverse Genres: Explore various genres, from adventure and science fiction to mystery and romance.
-* Customization: Tailor the generated stories by adjusting parameters and preferences. (Coming soon).
+* Customization: Tailor the generated stories by adjusting parameters and preferences.
 * Save and Share: Save your favorite story ideas or share them with fellow storytellers. (Coming soon).
 
 ## Why ImaGenStories?
@@ -32,18 +32,25 @@ Author: [Reewos Talla](https://github.com/reewos)
 
 Repository: [ImaGenStories](https://github.com/reewos/ImaGenStories)
 
-Last updated: December 28, 2023
+Last updated: January 07, 2024
 
 ---
 """,
+
 "prompt_story" : """
-Generate a story with the given image. The story must be {genre} genre. The story must have a {narrative} narrative.
-Please use the following prompts:
-* Describe the scenario based on the given image.
+Generate a compelling and coherent story given the images.
+The story must be {genre} genre.
+The story must have a {narrative} narrative.
+The story must be {size} in size.
+
+Please use the following instructions:
+* First, try to understand the images and get the possible scenarios based on the given images.
 * Find the possible characters or invent them according to the scenario of the image. Defines their appearance, behavior, and motivations.
 * Generates a situation or possible conflict where one or more characters are involved.
 * Maintain a logical sequence of events that lead toward resolution of the conflict.
 * Provides a conclusion that resolves the conflict satisfactorily. It can be a happy ending or leave room for reflection, but it must be consistent with the story.
+* Please ensure the story is engaging and well-structured.
+* Use these keywords as an integral part of the story: {tags}
 * Returns the answer in the {language} language.
 """
 }

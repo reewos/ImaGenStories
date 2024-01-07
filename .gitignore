@@ -1,0 +1,19 @@
+# .gitignore for Streamlit project
+
+# Virtual environment
+venv/
+
+# Python bytecode
+__pycache__/
+
+# Streamlit cache
+.streamlit/
+
+# Streamlit logs
+*.log
+
+# Compiled Python files
+*.pyc
+
+# Miscellaneous files
+.DS_Store

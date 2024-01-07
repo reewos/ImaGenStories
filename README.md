@@ -20,7 +20,7 @@ Whether you're a seasoned writer seeking inspiration or someone who simply loves
 ## Features:
 * Image-driven Story Generation: Turn images into the foundation of your stories.
 * Diverse Genres: Explore various genres, from adventure and science fiction to mystery and romance.
-* Customization: Tailor the generated stories by adjusting parameters and preferences. (Coming soon).
+* Customization: Tailor the generated stories by adjusting parameters and preferences.
 * Save and Share: Save your favorite story ideas or share them with fellow storytellers. (Coming soon).
 
 ## Why ImaGenStories?
@@ -36,6 +36,6 @@ Author: [Reewos Talla](https://github.com/reewos)
 
 Resource: [ImaGenStories](https://github.com/reewos/ImaGenStories)
 
-Last updated: December 28, 2023
+Last updated: January 07, 2024
 
 ---
