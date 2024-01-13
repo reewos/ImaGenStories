@@ -36,6 +36,6 @@ Author: [Reewos Talla](https://github.com/reewos)
 
 Resource: [ImaGenStories](https://github.com/reewos/ImaGenStories)
 
-Last updated: January 07, 2024
+Last updated: January 13, 2024
 
 ---
